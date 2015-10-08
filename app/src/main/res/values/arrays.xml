@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <array name="icons">
+        <item>@drawable/cupcake</item>
+        <item>@drawable/donut</item>
+        <item>@drawable/eclair</item>
+        <item>@drawable/froyo</item>
+        <item>@drawable/gingerbread</item>
+        <item>@drawable/honeycomb</item>
+        <item>@drawable/icecream</item>
+        <item>@drawable/jellybean</item>
+        <item>@drawable/kitkat</item>
+        <item>@drawable/lollipop</item>
+        <item>@drawable/marshmallow</item>
+    </array>
+
+</resources>
