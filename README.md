@@ -15,15 +15,19 @@ Here I have used images for adapters and view pagers from **arrays.xml:**. You c
 
 Pass your images into the adapter classes as like below
 
+```
 // where R.arrays.xml are images from the drawable folder.
 final MainAdapter adapter = new MainAdapter(this, R.array.icons);
 
+```
 The MainAdapter is nothing but a adapter class for RecyclerView wher you pass a images for griditems. 
 
 ### **Images for ViewPagers**
 
+```
 // I am passing the same list of images that I have used for GridItems. You can use your own instead of **mImageResID**.
 ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(mContext, mImageResID);
+```
 
 The ViewPagerAdapter is a class for ViewPager and it is found inside MainAdapter.
 
@@ -37,25 +41,29 @@ There are certain special aspects that must be followed before customizing your 
 
 The list count should always be +1 (i.e)
 
+```
  @Override
     public int getItemCount() {
         return (mContext.getResources().getIntArray(mImageResID).length) + HEADER_PAGER_LAYOUT;
     }
-    
+```
+
 where HEADER_PAGER_LAYOUT is a static variable with value 1
 
-**List postion:**
+**List position:**
 
 In order to get the exact position of the particular item in a list.
 
 you have to -1 from the current positon(i.e)
 
+```
 @Override
     public void onClick(View view) {
 
         mOnGridItemSelectedListener.onGridItemClick(view,getAdapterPosition() - HEADER_PAGER_LAYOUT);
     }
-    
+```
+
 where HEADER_PAGER_LAYOUT is a static variable with value 1
 
     
