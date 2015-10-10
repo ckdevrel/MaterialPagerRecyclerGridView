@@ -10,26 +10,34 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.takeoffandroid.materialpagerrecyclergridview.R;
+import com.takeoffandroid.materialpagerrecyclergridview.listeners.OnGridItemSelectedListener;
 import com.takeoffandroid.materialpagerrecyclergridview.views.CirclePageIndicator;
 
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int TYPE_HEADER = 0;
+    private static final int TYPER_PAGER = 0;
     private static final int TYPE_ITEM = 1;
+
+    private static final int HEADER_PAGER_LAYOUT = 1;
+
     private final int mImageResID;
 
     private Context mContext;
 
-    public HomeAdapter(Context context, int imageResID) {
+
+    private OnGridItemSelectedListener mOnGridItemSelectedListener;
+
+    public MainAdapter(Context context, int imageResID) {
         this.mImageResID = imageResID;
         this.mContext = context;
+        mOnGridItemSelectedListener = (OnGridItemSelectedListener) mContext;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 
-        if(viewType == TYPE_HEADER) {
+        if(viewType == TYPER_PAGER) {
             View v = LayoutInflater.from(parent.getContext()).inflate (R.layout.include_view_pager, parent, false);
             return new HeaderViewHolder (v);
             
@@ -47,13 +55,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         if(holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-            headerHolder.viewPager.setAdapter(new ViewPagerAdapter(mContext, R.array.icons));
+
+            ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(mContext, mImageResID);
+            headerHolder.viewPager.setAdapter(pagerAdapter);
             headerHolder.mIndicator.setViewPager(headerHolder.viewPager);
+
+
+
 
         } else if(holder instanceof RecyclerViewHolder) {
             RecyclerViewHolder genericViewHolder = (RecyclerViewHolder) holder;
 
-            Drawable icon = mContext.getResources().obtainTypedArray(mImageResID).getDrawable(position-1);
+            Drawable icon = mContext.getResources().obtainTypedArray(mImageResID).getDrawable(position - HEADER_PAGER_LAYOUT);
 
             genericViewHolder.image.setImageDrawable(icon);
 
@@ -64,7 +77,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType (int position) {
         if(isPositionHeader (position)) {
-            return TYPE_HEADER;
+            return TYPER_PAGER;
         }
         return TYPE_ITEM;
     }
@@ -76,8 +89,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return (mContext.getResources().getIntArray(mImageResID).length)+1;
+        return (mContext.getResources().getIntArray(mImageResID).length) + HEADER_PAGER_LAYOUT;
     }
+
+
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         ViewPager viewPager;
@@ -103,7 +118,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            //Every time you click on the row toast is displayed
+
+            mOnGridItemSelectedListener.onGridItemClick(view,getAdapterPosition() - HEADER_PAGER_LAYOUT);
         }
     }
+
+
+
+
+
 }

@@ -10,17 +10,21 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.takeoffandroid.materialpagerrecyclergridview.R;
+import com.takeoffandroid.materialpagerrecyclergridview.listeners.OnPageItemSelectedListener;
 
 
 public class ViewPagerAdapter extends PagerAdapter {
 
         private int iconResId;
         public static Context mContext;
+        private OnPageItemSelectedListener mOnPageItemSelectedListener;
 
         public ViewPagerAdapter(Context context, int iconResId) {
 
             this.iconResId = iconResId;
             this.mContext = context;
+
+            mOnPageItemSelectedListener = (OnPageItemSelectedListener) mContext;
         }
 
         @Override
@@ -28,13 +32,15 @@ public class ViewPagerAdapter extends PagerAdapter {
             return mContext.getResources().getIntArray(iconResId).length;
         }
 
-        @Override
+
+
+    @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
 
             Drawable icon = mContext.getResources().obtainTypedArray(iconResId).getDrawable(position);
 
@@ -51,6 +57,14 @@ public class ViewPagerAdapter extends PagerAdapter {
 
             container.addView(itemView);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    mOnPageItemSelectedListener.onPagerItemClick(view,position);
+
+                }
+            });
             return itemView;
         }
 
@@ -59,4 +73,8 @@ public class ViewPagerAdapter extends PagerAdapter {
             container.removeView((RelativeLayout) object);
 
         }
-    }
+
+
+
+
+}
