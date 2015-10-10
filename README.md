@@ -27,13 +27,14 @@ The MainAdapter is nothing but a adapter class for RecyclerView wher you pass a 
 ```
 // I am passing the same list of images that I have used for GridItems. You can use your own instead of **mImageResID**.
 ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(mContext, mImageResID);
+
 ```
 
 The ViewPagerAdapter is a class for ViewPager and it is found inside MainAdapter.
 
-**Note: **You can even pass ArrayList<Object> and customize your layout for the combination of both images and texts or whatever according to your requirement. I have used layout with ImageViews in this repo only for the sample purpose.
+**Note:** You can even pass ArrayList<Object> and customize your layout for the combination of both images and texts or whatever according to your requirement. I have used layout with ImageViews in this repo only for the sample purpose.
 
-### **Points to remember**
+### **Points to be remember**
 
 There are certain special aspects that must be followed before customizing your layout.
 
@@ -46,9 +47,10 @@ The list count should always be +1 (i.e)
     public int getItemCount() {
         return (mContext.getResources().getIntArray(mImageResID).length) + HEADER_PAGER_LAYOUT;
     }
+    
 ```
 
-where HEADER_PAGER_LAYOUT is a static variable with value 1
+where **HEADER_PAGER_LAYOUT** is a static variable with value **1**
 
 **List position:**
 
@@ -62,9 +64,9 @@ you have to -1 from the current positon(i.e)
 
         mOnGridItemSelectedListener.onGridItemClick(view,getAdapterPosition() - HEADER_PAGER_LAYOUT);
     }
+    
 ```
-
-where HEADER_PAGER_LAYOUT is a static variable with value 1
+where **HEADER_PAGER_LAYOUT** is a static variable with value **1**
 
     
 
