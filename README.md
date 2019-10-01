@@ -58,7 +58,7 @@ where **HEADER_PAGER_LAYOUT** is a static variable with value **1**
 
 In order to get the exact position of the particular item in a list.
 
-you have to -1 from the current positon(i.e)
+you have to -1 from the current position(i.e)
 
 ```
 @Override
